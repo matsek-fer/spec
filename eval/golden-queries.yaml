@@ -1,0 +1,228 @@
+# Golden retrieval queries — written 2026-09-04, before any index existed.
+# Judged per eval/README.md. Do not edit to make passing easier; append
+# new queries in a dated section instead.
+
+- id: gq-01
+  query: "Give me a set of problems of increasing difficulty that tests and builds my understanding of the action of a group on the cosets of its subgroup."
+  lang: en
+  kind: problem-ladder
+  probes: [relational-precision, prerequisite-chain, meta-constraint-stripping]
+  hard: false
+  expect: >
+    Ladder through cosets and index, the left-multiplication action of G on
+    G/H, orbit-stabilizer applied to it, the homomorphism G -> Sym(G/H) and
+    its kernel (normal core), ending near applications like "a subgroup of
+    index p (smallest prime) is normal". Generic coset or generic
+    group-action problems that never touch the action ON cosets count
+    against precision.
+
+- id: gq-02
+  query: "How do adjoint functors preserving limits and colimits show up across different fields of mathematics? Give me problems or reading that make this concrete."
+  lang: en
+  kind: mixed
+  probes: [abstraction-gap, topical-precision]
+  hard: true
+  expect: >
+    Items whose statements may never say "adjoint": abelianization
+    preserving coproducts, free constructions preserving colimits,
+    tensor-hom, Galois connections preserving meets/joins. Passes only if
+    annotations carry the abstract principle; raw-statement embedding
+    should miss most of these.
+
+- id: gq-03
+  query: "Problems where the pigeonhole principle does the work but is never mentioned in the statement."
+  lang: en
+  kind: problems
+  probes: [abstraction-gap]
+  hard: true
+  expect: >
+    Technique-tagged retrieval: items annotated pigeonhole whose statements
+    are about sums, divisibility, points in regions, sequences. A result
+    set of problems that SAY "pigeonhole" fails the spirit of the query.
+
+- id: gq-04
+  query: "Pripremi me za Sylowljeve teoreme — zadaci koji postupno grade potrebno predznanje."
+  lang: hr
+  kind: problem-ladder
+  probes: [cross-lingual, prerequisite-chain]
+  hard: true
+  expect: >
+    PREREQUISITES of Sylow, not Sylow applications: order of a group and
+    Lagrange, conjugation and conjugacy classes, class equation, p-groups,
+    group actions and orbit counting. A set of "use Sylow to show..."
+    problems fails — the member asked to be prepared FOR the theorems.
+
+- id: gq-05
+  query: "Epsilon-delta problems from the definition of continuity up to uniform continuity on compact sets, increasing difficulty."
+  lang: en
+  kind: problem-ladder
+  probes: [topical-precision, difficulty-targeting]
+  hard: false
+  expect: >
+    Calibration baseline — standard vocabulary, should be easy for dense
+    retrieval. Ladder from direct epsilon-delta verification to
+    uniform-continuity proofs and the compactness argument.
+
+- id: gq-06
+  query: "A proof of Lagrange's theorem suitable for someone who just learned what a coset is — and a second, genuinely different proof if you have one."
+  lang: en
+  kind: proof
+  probes: [difficulty-targeting, diversity, honesty-gap]
+  hard: false
+  expect: >
+    One coset-partition proof at introductory level; a second via group
+    actions or equivalence relations counts as different. If the library
+    has only one proof, saying so honestly passes.
+
+- id: gq-07
+  query: "Zadaci o konvergenciji redova gdje poredbeni kriterij nije dovoljan pa treba nešto jače."
+  lang: hr
+  kind: problems
+  probes: [cross-lingual, negative-constraint]
+  hard: true
+  expect: >
+    Series needing ratio/root/Raabe/condensation or clever manipulation —
+    and NOT solvable by direct comparison. Embeddings ignore negation, so
+    naive search returns comparison-test problems; passing requires the
+    reranker to enforce the exclusion.
+
+- id: gq-08
+  query: "Problems that look like computation but are really the rank-nullity theorem in disguise."
+  lang: en
+  kind: problems
+  probes: [abstraction-gap]
+  hard: true
+  expect: >
+    Annotation-tagged rank-nullity items whose statements are about solving
+    systems, dimensions of solution spaces, injectivity/surjectivity of
+    maps between spaces of given dimensions.
+
+- id: gq-09
+  query: "I want to understand why R and R^2 are not homeomorphic. What do I need to learn first, and in what order?"
+  lang: en
+  kind: mixed
+  probes: [prerequisite-chain]
+  hard: false
+  expect: >
+    A DAG-ordered path: continuity, connectedness, removing a point,
+    invariance arguments — blogs or problems in prerequisite order, target
+    at the end. Order correctness matters more than item count.
+
+- id: gq-10
+  query: "Probability brainteasers that secretly need linearity of expectation, from easy to hard."
+  lang: en
+  kind: problem-ladder
+  probes: [abstraction-gap, difficulty-targeting]
+  hard: true
+  expect: >
+    Technique-tagged: expected number of fixed points, coupon collector,
+    indicator-variable tricks — statements say "expected number of...",
+    annotations say linearity-of-expectation.
+
+- id: gq-11
+  query: "Najlakši zadaci o funkcijskim jednadžbama koje imate — tek počinjem."
+  lang: hr
+  kind: problems
+  probes: [cross-lingual, difficulty-targeting]
+  hard: false
+  expect: >
+    Difficulty floor: only level 1-2 functional equation items
+    (substitution basics, Cauchy-like on Q). Any level 4-5 item in the
+    result fails the query even if on-topic.
+
+- id: gq-12
+  query: "Proofs of the Cauchy-Schwarz inequality in different settings — R^n, inner product spaces, probability — so I can compare them."
+  lang: en
+  kind: proof
+  probes: [diversity, topical-precision]
+  hard: false
+  expect: >
+    Multiple proofs of the same statement across settings; the point is
+    the retrieval surfacing the SAME concept id across differently-worded
+    artifacts.
+
+- id: gq-13
+  query: "A blog that explains entropy to someone comfortable with basic probability but without measure theory."
+  lang: en
+  kind: blog
+  probes: [difficulty-targeting, topical-precision]
+  hard: false
+  expect: >
+    Blog whose requires-list matches basic probability and excludes
+    measure theory. Audience fit is the judged criterion, not just topic.
+
+- id: gq-14
+  query: "Problems about quotient groups that can be solved without the first isomorphism theorem."
+  lang: en
+  kind: problems
+  probes: [negative-constraint]
+  hard: true
+  expect: >
+    Quotient-group items whose annotated techniques exclude
+    first-iso-theorem: coset arithmetic, normality checks, orders of
+    elements in G/N. Reranker must enforce the exclusion.
+
+- id: gq-15
+  query: "Problems of increasing difficulty on diagonalization, ending with one that needs the spectral theorem."
+  lang: en
+  kind: problem-ladder
+  probes: [difficulty-targeting, prerequisite-chain]
+  hard: false
+  expect: >
+    Ladder with a specified ceiling: eigenvalue computation, criteria for
+    diagonalizability, and exactly the last item requiring the spectral
+    theorem (symmetric/normal case).
+
+- id: gq-16
+  query: "Where do Galois connections show up outside of Galois theory? Blogs or problems welcome."
+  lang: en
+  kind: mixed
+  probes: [abstraction-gap, topical-precision]
+  hard: true
+  expect: >
+    Annotated instances: subgroup-fixed field is one, but the answer
+    should surface others — closure operators, floor/ceiling adjunction,
+    syntax-semantics, order theory. Only-Galois-theory results fail.
+
+- id: gq-17
+  query: "Zadaci koji povezuju djelovanje grupa i teoriju brojeva, na primjer dokaz malog Fermatovog teorema preko orbita."
+  lang: hr
+  kind: problems
+  probes: [cross-lingual, relational-precision]
+  hard: true
+  expect: >
+    Cross-topic bridge items: Fermat/Euler via group actions or orbit
+    counting (necklace argument), Wilson via pairing, Burnside-flavoured
+    number theory. Pure group theory or pure number theory items fail.
+
+- id: gq-18
+  query: "Show me the hardest problems you have about compactness."
+  lang: en
+  kind: problems
+  probes: [difficulty-targeting, honesty-gap]
+  hard: false
+  expect: >
+    Top-difficulty compactness items only, and an honest count ("3 items
+    at level 5") rather than padding with level-2 problems.
+
+- id: gq-19
+  query: "Problems where naive induction fails and you need strong induction or a strengthened hypothesis."
+  lang: en
+  kind: problems
+  probes: [abstraction-gap, negative-constraint]
+  hard: true
+  expect: >
+    Technique-nuance retrieval: items annotated strong-induction or
+    hypothesis-strengthening, where the natural first attempt (plain
+    induction on the statement as given) is known to get stuck.
+
+- id: gq-20
+  query: "Stalno brkam konvergenciju po točkama i uniformnu konvergenciju — zadaci koji jasno pokazuju razliku, od najlakšeg."
+  lang: hr
+  kind: problem-ladder
+  probes: [cross-lingual, topical-precision, difficulty-targeting]
+  hard: false
+  expect: >
+    Contrast set: sequences of functions converging pointwise but not
+    uniformly (x^n on [0,1], bump functions), what uniform convergence
+    buys (continuity of the limit, exchanging limits), easiest first.
