@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/matsek-fer/spec/schema/manifest.schema.json",
+  "title": "MatSek artifact manifest v1",
+  "description": "manifest.json of a bundle folder (types problem, proof, blog). Experience bundles carry no manifest.json; their experience.md frontmatter is the manifest (experience-frontmatter.schema.json). Cross-file rules the validator enforces beyond this schema: teaches/requires ids exist in concepts.yaml; the folder path mirrors id; per-type required files exist.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "description": "MAJOR.MINOR of the bundle format. This schema describes major version 1.",
+      "pattern": "^1\\.[0-9]+$"
+    },
+    "type": {
+      "enum": ["problem", "proof", "blog", "experience"]
+    },
+    "id": {
+      "type": "string",
+      "description": "\"<type>/<kebab-slug>\"; the prefix must equal the type field (enforced by the allOf branches below). Permanent identity of the artifact.",
+      "pattern": "^(problem|proof|blog|experience)/[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "language": {
+      "description": "Language of the content files. annotation.md is always English regardless (D-003).",
+      "enum": ["hr", "en"]
+    },
+    "author": {
+      "type": "string",
+      "description": "\"Name <github-handle>\" — the angle brackets hold a GitHub handle, not an email.",
+      "pattern": "^[^<>]+ <[a-zA-Z0-9][a-zA-Z0-9-]{0,38}>$"
+    },
+    "license": {
+      "const": "CC-BY-4.0",
+      "description": "The only valid value (DECISIONS.md D-001)."
+    },
+    "provenance": {
+      "enum": ["original", "adapted", "ai-assisted"],
+      "description": "See policies/provenance.md (D-004)."
+    },
+    "adapted_from": {
+      "type": "string",
+      "minLength": 1,
+      "description": "URL or full citation of the license-compatible source. Required iff provenance is \"adapted\"; forbidden otherwise."
+    },
+    "created": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "teaches": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/conceptId" },
+      "uniqueItems": true
+    },
+    "requires": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/conceptId" },
+      "uniqueItems": true
+    },
+    "difficulty": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "Required for problem and proof, optional for blog, forbidden for experience."
+    }
+  },
+  "required": [
+    "schema_version", "type", "id", "title", "language", "author",
+    "license", "provenance", "created", "teaches", "requires"
+  ],
+  "patternProperties": {
+    "^x_": {
+      "description": "Tool-private extension keys. Always allowed; tools that rewrite the file must preserve them."
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": { "provenance": { "const": "adapted" } },
+        "required": ["provenance"]
+      },
+      "then": { "required": ["adapted_from"] },
+      "else": { "not": { "required": ["adapted_from"] } }
+    },
+    {
+      "if": {
+        "properties": { "type": { "enum": ["problem", "proof"] } },
+        "required": ["type"]
+      },
+      "then": { "required": ["difficulty"] }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "experience" } },
+        "required": ["type"]
+      },
+      "then": { "not": { "required": ["difficulty"] } }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "problem" } },
+        "required": ["type"]
+      },
+      "then": { "properties": { "id": { "pattern": "^problem/" } } }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "proof" } },
+        "required": ["type"]
+      },
+      "then": { "properties": { "id": { "pattern": "^proof/" } } }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "blog" } },
+        "required": ["type"]
+      },
+      "then": { "properties": { "id": { "pattern": "^blog/" } } }
+    },
+    {
+      "if": {
+        "properties": { "type": { "const": "experience" } },
+        "required": ["type"]
+      },
+      "then": { "properties": { "id": { "pattern": "^experience/" } } }
+    }
+  ],
+  "$defs": {
+    "conceptId": {
+      "type": "string",
+      "description": "Kebab-case id that must exist in concepts.yaml (registry existence checked by the validator, not this schema).",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    }
+  }
+}

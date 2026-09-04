@@ -1,0 +1,42 @@
+# Fixture registry for the reference validator's tests. Written for this spec
+# (original work, MatSek Spec Fixtures); shaped like the worked example in
+# bundles.md — a small DAG with one join, enough to exercise a cycle check.
+- id: sets
+  title: Sets
+  description: Membership, subsets, unions and intersections.
+  requires: []
+  msc: "03E75"
+
+- id: natural-numbers
+  title: Natural numbers
+  description: The naturals with ordering and the well-ordering principle.
+  requires: [sets]
+
+- id: functions
+  title: Functions
+  description: Maps between sets; domain, codomain, image, composition.
+  requires: [sets]
+
+- id: sequences
+  title: Sequences
+  description: Functions from the naturals; indexing, monotonicity, boundedness.
+  requires: [functions, natural-numbers]
+  msc: "40-XX"
+
+- id: partial-fractions
+  title: Partial fractions
+  description: Decomposing a rational expression into a sum of simpler fractions.
+  requires: [functions]
+  msc: "26C15"
+
+- id: telescoping-sums
+  title: Telescoping sums
+  description: Collapsing a sum whose terms are consecutive differences.
+  requires: [sequences, partial-fractions]
+  msc: "40A05"
+
+- id: mathematical-induction
+  title: Mathematical induction
+  description: Proof by base case and inductive step over the naturals.
+  requires: [natural-numbers]
+  x_fixture_note: registry entries may carry x_ keys like any other object

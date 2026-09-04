@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/matsek-fer/spec/schema/concepts.schema.json",
+  "title": "MatSek concept registry (concepts.yaml) v1",
+  "description": "The document root is an array of concept entries. Two rules JSON Schema cannot express are enforced by the validator: ids are unique across the array, and the graph formed by \"requires\" edges is ACYCLIC (the retrieval ladder walks it as a DAG). Every id referenced in a \"requires\" array must itself be defined in the file — also a validator check.",
+  "type": "array",
+  "items": { "$ref": "#/$defs/concept" },
+  "$defs": {
+    "conceptId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "concept": {
+      "type": "object",
+      "properties": {
+        "id": { "$ref": "#/$defs/conceptId" },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Short human name, English — the registry is model-facing."
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requires": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/conceptId" },
+          "uniqueItems": true,
+          "description": "Prerequisite concept ids. The resulting graph must be acyclic (validator-enforced)."
+        },
+        "msc": {
+          "type": "string",
+          "description": "Optional Mathematics Subject Classification code: top level (\"26\"), section (\"26A\", \"26-XX\"), or full (\"26A06\", \"26Axx\").",
+          "pattern": "^[0-9]{2}(-XX|-[0-9]{2}|[A-Z](xx|[0-9]{2})?)?$"
+        }
+      },
+      "required": ["id", "title", "description", "requires"],
+      "patternProperties": {
+        "^x_": {
+          "description": "Tool-private extension keys. Always allowed; tools that rewrite the file must preserve them."
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

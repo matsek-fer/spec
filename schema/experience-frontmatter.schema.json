@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/matsek-fer/spec/schema/experience-frontmatter.schema.json",
+  "title": "MatSek experience.md frontmatter v1",
+  "description": "YAML frontmatter of experience.md (parsed to JSON before validation). Experience bundles have no manifest.json — this frontmatter IS the manifest. The body below it is free text. Authorship and license ride on git history, not frontmatter.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^1\\.[0-9]+$"
+    },
+    "type": {
+      "const": "experience"
+    },
+    "tool": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Which tool the report is about, e.g. \"ai-learner\"."
+    },
+    "tool_version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Version string verbatim from the tool."
+    },
+    "duration_minutes": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "rating": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "consent_public": {
+      "type": "boolean",
+      "default": false,
+      "description": "Publication gate: only reports with true may appear anywhere public."
+    },
+    "session_ref": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Opaque pointer to the session the report is about, for reproduction."
+    }
+  },
+  "required": ["schema_version", "type", "tool", "tool_version"],
+  "patternProperties": {
+    "^x_": {
+      "description": "Tool-private extension keys. Always allowed; tools that rewrite the file must preserve them."
+    }
+  },
+  "additionalProperties": false
+}

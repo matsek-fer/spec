@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "type": "problem",
+  "id": "problem/adapted-no-source",
+  "title": "Prilagodba bez izvora",
+  "language": "hr",
+  "author": "MatSek Spec Fixtures <matsek-fer>",
+  "license": "CC-BY-4.0",
+  "provenance": "adapted",
+  "created": "2026-09-04",
+  "teaches": [],
+  "requires": [],
+  "difficulty": 1
+}

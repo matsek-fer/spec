@@ -1,0 +1,20 @@
+{
+  "name": "@matsek/validate",
+  "version": "1.0.0",
+  "description": "Reference validator for the MatSek bundle format v1 (see ../bundles.md)",
+  "type": "module",
+  "bin": {
+    "matsek-validate": "bin/matsek-validate.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test test/validate.test.js"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "js-yaml": "^4.1.0"
+  }
+}

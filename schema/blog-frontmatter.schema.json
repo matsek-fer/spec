@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/matsek-fer/spec/schema/blog-frontmatter.schema.json",
+  "title": "MatSek blog.md frontmatter v1",
+  "description": "YAML frontmatter of blog.md (parsed to JSON before validation). Validates checkpoint SHAPE only: whether an anchor matches a heading in the body is a best-effort validator WARNING, and \"correct\" being in range of \"options\" is a validator error — neither is expressible here.",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^1\\.[0-9]+$"
+    },
+    "section_concepts": {
+      "type": "object",
+      "description": "Heading anchor -> concept ids the section covers. Anchors: lowercase, Croatian diacritics transliterated to ASCII, non-alphanumeric runs collapsed to single hyphens.",
+      "patternProperties": {
+        "^#[a-z0-9]+(-[a-z0-9]+)*$": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/conceptId"
+          },
+          "uniqueItems": true
+        },
+        "^x_": {}
+      },
+      "additionalProperties": false
+    },
+    "checkpoints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/checkpoint"
+      }
+    }
+  },
+  "required": [
+    "schema_version",
+    "section_concepts"
+  ],
+  "patternProperties": {
+    "^x_": {
+      "description": "Tool-private extension keys. Always allowed; tools that rewrite the file must preserve them."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "conceptId": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "anchor": {
+      "type": "string",
+      "pattern": "^#[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "checkpoint": {
+      "type": "object",
+      "properties": {
+        "after": {
+          "$ref": "#/$defs/anchor",
+          "description": "Anchor of the section this question follows."
+        },
+        "ask": {
+          "type": "string",
+          "minLength": 1
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 2
+        },
+        "correct": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "0-based index into options. Must be < options.length — the validator enforces the upper bound."
+        },
+        "if_wrong": {
+          "$ref": "#/$defs/ifWrong"
+        }
+      },
+      "required": [
+        "after",
+        "ask",
+        "options",
+        "correct",
+        "if_wrong"
+      ],
+      "patternProperties": {
+        "^x_": {}
+      },
+      "additionalProperties": false
+    },
+    "ifWrong": {
+      "type": "object",
+      "properties": {
+        "goto": {
+          "$ref": "#/$defs/anchor",
+          "description": "Where a wrong answer sends the reader."
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "goto"
+      ],
+      "patternProperties": {
+        "^x_": {}
+      },
+      "additionalProperties": false
+    }
+  }
+}

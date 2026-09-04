@@ -87,3 +87,16 @@ banned regardless of how they were obtained. Rationale and rules:
 
 Owner-paid infrastructure beyond this is a cost that must be justified in a
 new decision entry, never a default.
+
+---
+
+## D-006 · Tool code is MIT; library content is CC BY 4.0
+
+**Date:** 2026-09-04 · **Status:** locked
+
+D-001's CC BY 4.0 governs library CONTENT (problems, proofs, blogs, and
+submitted experience reports). The tools themselves (AI_instructor,
+validator, reader, …) are MIT-licensed code. An experience report enters
+the library as content, under CC BY 4.0 like everything else — its
+`consent_public: true` is the member's act of submission, not a license
+choice.

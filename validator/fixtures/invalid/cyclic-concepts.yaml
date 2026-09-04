@@ -1,0 +1,15 @@
+# Invalid on purpose: sets -> functions -> sequences -> sets is a cycle.
+- id: sets
+  title: Sets
+  description: Membership, subsets, unions and intersections.
+  requires: [sequences]
+
+- id: functions
+  title: Functions
+  description: Maps between sets.
+  requires: [sets]
+
+- id: sequences
+  title: Sequences
+  description: Functions from the naturals.
+  requires: [functions]

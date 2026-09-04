@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "type": "problem",
+  "id": "problem/teleskopski-zbroj",
+  "title": "Teleskopski zbroj",
+  "language": "hr",
+  "author": "MatSek Spec Fixtures <matsek-fer>",
+  "license": "CC-BY-4.0",
+  "provenance": "original",
+  "created": "2026-09-04",
+  "teaches": ["telescoping-sums"],
+  "requires": ["sequences", "partial-fractions", "mathematical-induction"],
+  "difficulty": 2,
+  "x_fixture": { "purpose": "reference validator test data" }
+}

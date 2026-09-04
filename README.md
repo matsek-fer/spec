@@ -18,10 +18,12 @@ static files from GitHub — target infrastructure cost: **$0/month**.
 | `policies/provenance.md` | Contributor agreement, provenance rules, what may never enter the library. |
 | `eval/golden-queries.yaml` | 20 retrieval queries written **before** any index existed — the Phase-3 acceptance test. |
 | `eval/README.md` | How the golden set is judged. |
-| `schema/` *(Phase 1)* | JSON Schemas for artifact bundles + the validator CLI. |
+| `bundles.md` | The artifact bundle format v1 — the folder model, manifest fields, per-type files, blog/experience frontmatter, the concept registry. |
+| `schema/` | JSON Schemas (draft 2020-12) for manifests, blog and experience frontmatter, and `concepts.yaml`. |
+| `validator/` | The reference validator CLI — enforces what the schemas cannot (registry existence, acyclicity, `correct` in range, anchor warnings, required files). |
 
 ## Status
 
 Phase 0 (decisions, policies, golden queries) — done.
-Phase 1 (bundle spec + validator) — next.
+Phase 1 (bundle spec + validator) — done.
 The full plan lives with the maintainer.

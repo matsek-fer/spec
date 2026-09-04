@@ -1,0 +1,1 @@
+Rješenje za test validatora.

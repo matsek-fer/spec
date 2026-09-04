@@ -1,0 +1,13 @@
+{
+  "schema_version": "1.0",
+  "type": "blog",
+  "id": "blog/checkpoint-out-of-range",
+  "title": "Indeks izvan raspona",
+  "language": "hr",
+  "author": "MatSek Spec Fixtures <matsek-fer>",
+  "license": "CC-BY-4.0",
+  "provenance": "original",
+  "created": "2026-09-04",
+  "teaches": [],
+  "requires": []
+}
