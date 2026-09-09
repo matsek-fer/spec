@@ -100,3 +100,33 @@ validator, reader, …) are MIT-licensed code. An experience report enters
 the library as content, under CC BY 4.0 like everything else — its
 `consent_public: true` is the member's act of submission, not a license
 choice.
+
+---
+
+## D-007 · The library forest: trees are the merge layer
+
+**Date:** 2026-09-09 · **Status:** locked
+
+The library gains a communal tree layer — `library/forest/`, an ordinary
+forest-0.1 vault (`derivative: false`, CC BY 4.0) — and **publishing
+merges into trees, never into blogs**. Deduplication and enrichment
+happen at tree granularity, where "does this exist already?" is a
+machine-checkable question; a bundle-vs-bundle comparison is not.
+
+Canonicity: for library-authored content going forward, **trees are
+canonical** and blogs are presentation — curated paths that may
+reference trees. **Legacy blogs remain canonical** until digested; their
+trees carry a `digested_from` pointer naming the bundle and its
+`created` date, so staleness is visible rather than silent.
+
+Digestion of library content is open: any member may digest a
+currently-undigested library blog into forest trees on their own
+subscription (claim first — open an issue "Digestiram <bundle-id>" — so
+effort is not duplicated). This is safe by construction: library content
+is CC BY. The existing firewall still bars every other source — only
+CC BY-or-freer material ever reaches the library forest.
+
+Bundles (`problems/ proofs/ blogs/`) are unchanged and the site keeps
+consuming them; the forest is additive. Mechanically converted trees
+from problem/proof bundles carry the bundle's author and provenance.
+
